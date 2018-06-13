@@ -26,6 +26,37 @@ public class PlayerScript : MonoBehaviour {
 
 	// Move move the character in the world
 	void Move() {
+		
+		// Move UP
+		if (Input.GetKey(KeyCode.W)) {
+			//Move UP & RIGHT
+			if (Input.GetKey(KeyCode.D))
+				gameObject.transform.position += (new Vector3(0.5f, 0.5f, 0).normalized * speed * Time.deltaTime);
+			//Move UP & LEFT
+			else if (Input.GetKey(KeyCode.A))
+				gameObject.transform.position += (new Vector3(-0.5f, 0.5f, 0).normalized * speed * Time.deltaTime);
+			else
+				gameObject.transform.position += (new Vector3(0, 1, 0).normalized * speed * Time.deltaTime);
+		}
+		// Move DOWN
+		else if (Input.GetKey(KeyCode.S)) {
+			//Move DOWN & RIGHT
+			if (Input.GetKey(KeyCode.D))
+				gameObject.transform.position += (new Vector3(0.5f, -0.5f, 0).normalized * speed * Time.deltaTime);
+			//Move DOWN & LEFT
+			else if (Input.GetKey(KeyCode.A))
+				gameObject.transform.position += (new Vector3(-0.5f, -0.5f, 0).normalized * speed * Time.deltaTime);
+			else
+				gameObject.transform.position += (new Vector3(0, -1, 0).normalized * speed * Time.deltaTime);
+		}
+		// Move RIGHT
+		else if (Input.GetKey(KeyCode.D))
+			gameObject.transform.position += (new Vector3(1, 0, 0).normalized * speed * Time.deltaTime);
+		// Move LEFT
+		else
+			gameObject.transform.position += (new Vector3(-1, 0, 0).normalized * speed * Time.deltaTime);
+		
+		/*
 		// Move UP
 		if (Input.GetKey(KeyCode.W))
 			gameObject.transform.position += (new Vector3(0, speed, 0) * Time.deltaTime);
@@ -38,6 +69,7 @@ public class PlayerScript : MonoBehaviour {
 		// Move DOWN
 		if (Input.GetKey(KeyCode.S))
 			gameObject.transform.position += (new Vector3(0, -speed, 0) * Time.deltaTime);
+		*/
 	}
 
 	// Rotate make the character look at the mouse
