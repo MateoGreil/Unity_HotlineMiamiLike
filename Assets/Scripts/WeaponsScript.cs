@@ -15,16 +15,19 @@ public class WeaponsScript : MonoBehaviour {
 	}
 
 	//Fire bullet if fireWeapon. Else stab
-	void Fire () {
+	public void Fire () {
 		if (fireWeapon) {
 			if (ammos > 0) {
 				if (holder.tag == "Player")
 					ammos -= 1;
 				//Instantiate bullet and play bullet animation
+				bullet = Instantiate(bullet, gameObject.transform.position, Quaternion.identity, transform);
 			}
 		}
 		else {
 			//Animate knife
 		}
 	}
+
+	/**** FAIRE LA FONCTION POUR LA PERTE DE VIE DU PERSO ****/
 }
