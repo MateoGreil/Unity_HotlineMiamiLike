@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour {
 	public float speed;
+	GameObject weapon;
 	// Use this for initialization
 	void Start () {
-		
+		weapon = gameObject.transform.GetChild(2).gameObject;
 	}
 	
 	// Update is called once per frame
@@ -14,6 +15,10 @@ public class PlayerScript : MonoBehaviour {
 		if (GetKeyMove())
 			Move();
 		Rotate();
+		/*if (Input.GetKey(KeyCode.Mouse0))
+			weapon.GetComponent<WeaponsScript>().Fire();*/
+		if (Input.GetKeyDown(KeyCode.Mouse1))
+			DropWeapon();
 	}
 
 	// GetKeyMove return true if a key of movement is down
@@ -69,4 +74,23 @@ public class PlayerScript : MonoBehaviour {
  		angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + 90;
  		transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
+
+	void DropWeapon() {
+		weapon.transform.Translate(new Vector3(0, -1, 0));
+		weapon.GetComponent<BoxCollider2D>().enabled = true;
+		weapon.GetComponent<SpriteRenderer>().sortingLayerName = "Weapon";
+		weapon.transform.parent = null;
+		weapon = null;
+	}
+
+	void OnTriggerEnter2D(Collider2D collider) {
+		if (collider.tag == "Weapon" && weapon == null && Input.GetKey(KeyCode.E)) {
+			weapon = collider;
+			weapon.transform.parent
+			weapon.transform.position = transform.position;
+			weapon.transform.Translate(-0.125, -0.21);
+			weapon.GetComponent<BoxCollider2D>().enabled = false;
+			weapon.GetComponent<SpriteRenderer>().sortingLayerName = "EquipedWeapon";
+		}
+	}
 }
