@@ -8,7 +8,7 @@ public class PlayerScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		weapon = gameObject.transform.GetChild(2).gameObject;
+		weapon = null;
 	}
 	
 	// Update is called once per frame
@@ -78,6 +78,7 @@ public class PlayerScript : MonoBehaviour {
 
 	//DropWeapon, obviously, it transform the player in a candle
 	void DropWeapon() {
+		weapon.GetComponent<WeaponsScript>().GetWeaponSprite();
 		weapon.transform.Translate(new Vector3(0, -1, 0));
 		weapon.GetComponent<BoxCollider2D>().enabled = true;
 		weapon.GetComponent<SpriteRenderer>().sortingLayerName = "Weapon";
@@ -89,6 +90,7 @@ public class PlayerScript : MonoBehaviour {
 		//Take the weapon
 		if (collider.tag == "Weapon" && weapon == null && Input.GetKey(KeyCode.E)) {
 			weapon = collider.gameObject;
+			weapon.GetComponent<WeaponsScript>().GetWeaponSprite();
 			weapon.transform.parent = gameObject.transform;
 			weapon.transform.position = transform.position;
 			weapon.transform.rotation = transform.rotation;

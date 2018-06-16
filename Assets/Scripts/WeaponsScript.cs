@@ -38,7 +38,7 @@ public class WeaponsScript : MonoBehaviour {
 
 	//Change weapon's sprite when picked up
 	public void GetWeaponSprite () {
-		if (transform.parent)
+		if (spriteRenderer.sprite == onGroundSprite)
 			spriteRenderer.sprite = attachedSprite;
 		else
 			spriteRenderer.sprite = onGroundSprite;		
