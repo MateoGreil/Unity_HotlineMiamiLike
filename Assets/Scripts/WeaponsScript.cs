@@ -10,6 +10,7 @@ public class WeaponsScript : MonoBehaviour {
 	public float 		fireRate;
 	public Sprite 		attachedSprite;
 	public Sprite 		onGroundSprite;
+	private GameObject	newBullet;
 	
 	private SpriteRenderer spriteRenderer;
 
@@ -28,7 +29,9 @@ public class WeaponsScript : MonoBehaviour {
 				if (transform.parent.tag == "Player")
 					ammos -= 1;
 				//Instantiate bullet and play bullet animation
-				bullet = Instantiate(bullet, gameObject.transform.position, Quaternion.identity, transform);
+				newBullet = Instantiate(bullet, gameObject.transform.position, gameObject.transform.rotation);
+				newBullet.transform.Rotate(Vector3.forward * -90);
+				newBullet.transform.Translate(0.5f, 0, 0);
 			}
 		}
 		else {

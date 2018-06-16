@@ -16,8 +16,8 @@ public class PlayerScript : MonoBehaviour {
 		if (GetKeyMove())
 			Move();
 		Rotate();
-		/*if (Input.GetKey(KeyCode.Mouse0))
-			weapon.GetComponent<WeaponsScript>().Fire();*/
+		if (Input.GetKeyDown(KeyCode.Mouse0) && weapon != null)
+			weapon.GetComponent<WeaponsScript>().Fire();
 		if (Input.GetKeyDown(KeyCode.Mouse1) && weapon != null)
 			DropWeapon();
 	}
@@ -84,6 +84,13 @@ public class PlayerScript : MonoBehaviour {
 		weapon.GetComponent<SpriteRenderer>().sortingLayerName = "Weapon";
 		weapon.transform.parent = null;
 		weapon = null;
+	}
+
+	void OnCollisionEnter2D(Collision2D collision) {
+		if (collision.collider.tag == "Bullet") {
+			Destroy(collision.gameObject);
+			Destroy(this.gameObject);
+		}
 	}
 
 	void OnTriggerStay2D(Collider2D collider) {
