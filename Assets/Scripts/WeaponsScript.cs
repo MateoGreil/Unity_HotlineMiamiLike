@@ -6,7 +6,6 @@ public class WeaponsScript : MonoBehaviour {
 	public GameObject	bullet;
 	public bool 		fireWeapon;
 	public int			ammos;
-	public float 		power;
 	public float 		fireRate;
 	public Sprite 		attachedSprite;
 	public Sprite 		onGroundSprite;
