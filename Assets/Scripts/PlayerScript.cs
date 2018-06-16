@@ -85,12 +85,13 @@ public class PlayerScript : MonoBehaviour {
 		weapon = null;
 	}
 
-	void OnTriggerEnter2D(Collider2D collider) {
+	void OnTriggerStay2D(Collider2D collider) {
 		//Take the weapon
 		if (collider.tag == "Weapon" && weapon == null && Input.GetKey(KeyCode.E)) {
 			weapon = collider.gameObject;
 			weapon.transform.parent = gameObject.transform;
 			weapon.transform.position = transform.position;
+			weapon.transform.rotation = transform.rotation;
 			weapon.transform.Translate(new Vector3(-0.125f, -0.21f, 0));
 			weapon.GetComponent<BoxCollider2D>().enabled = false;
 			weapon.GetComponent<SpriteRenderer>().sortingLayerName = "EquipedWeapon";
