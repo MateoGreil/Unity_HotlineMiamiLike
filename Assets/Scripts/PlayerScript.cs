@@ -18,9 +18,8 @@ public class PlayerScript : MonoBehaviour {
 		Rotate();
 		/*if (Input.GetKey(KeyCode.Mouse0))
 			weapon.GetComponent<WeaponsScript>().Fire();*/
-		if (Input.GetKeyDown(KeyCode.Mouse1) && weapon != null) {
+		if (Input.GetKeyDown(KeyCode.Mouse1) && weapon != null)
 			DropWeapon();
-		}
 	}
 
 	// GetKeyMove return true if a key of movement is down
