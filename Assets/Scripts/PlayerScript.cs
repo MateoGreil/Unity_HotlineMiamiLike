@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour {
 	public float speed;
 	GameObject weapon;
+
 	// Use this for initialization
 	void Start () {
 		weapon = gameObject.transform.GetChild(2).gameObject;
@@ -17,8 +18,9 @@ public class PlayerScript : MonoBehaviour {
 		Rotate();
 		/*if (Input.GetKey(KeyCode.Mouse0))
 			weapon.GetComponent<WeaponsScript>().Fire();*/
-		if (Input.GetKeyDown(KeyCode.Mouse1))
+		if (Input.GetKeyDown(KeyCode.Mouse1) && weapon != null) {
 			DropWeapon();
+		}
 	}
 
 	// GetKeyMove return true if a key of movement is down
@@ -75,6 +77,7 @@ public class PlayerScript : MonoBehaviour {
  		transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
+	//DropWeapon, obviously, it transform the player in a candle
 	void DropWeapon() {
 		weapon.transform.Translate(new Vector3(0, -1, 0));
 		weapon.GetComponent<BoxCollider2D>().enabled = true;
@@ -84,6 +87,7 @@ public class PlayerScript : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D collider) {
+		//Take the weapon
 		if (collider.tag == "Weapon" && weapon == null && Input.GetKey(KeyCode.E)) {
 			weapon = collider.gameObject;
 			weapon.transform.parent = gameObject.transform;
