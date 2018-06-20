@@ -46,10 +46,4 @@ public class WeaponsScript : MonoBehaviour {
 		else
 			spriteRenderer.sprite = onGroundSprite;		
 	}
-	
-	void OnCollisionEnter2D(Collision2D collision) {
-		if (fireWeapon == false && Input.GetKeyDown(KeyCode.Mouse0) && collision.collider.tag == "Enemy") {
-			Destroy(collision.gameObject);
-		}
-	}
 }

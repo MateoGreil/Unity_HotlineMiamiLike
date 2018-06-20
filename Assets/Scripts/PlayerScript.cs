@@ -88,7 +88,10 @@ public class PlayerScript : MonoBehaviour {
 
 
 	void OnCollisionEnter2D(Collision2D collision) {
-		if (collision.collider.tag == "Bullet") {
+		if (collision.collider.tag == "Weapon" && collision.collider.GetComponent<WeaponsScript>().fireWeapon == false) {
+			
+		}
+		else if (collision.collider.tag == "Bullet") {
 			Destroy(collision.gameObject);
 			Destroy(this.gameObject);
 		}
