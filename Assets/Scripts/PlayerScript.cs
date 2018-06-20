@@ -90,10 +90,8 @@ public class PlayerScript : MonoBehaviour {
 		if (collision.collider.tag == "Weapon" && collision.collider.GetComponent<WeaponsScript>().fireWeapon == false) {
 			//Coup de cut
 		}
-		else if (collision.collider.tag == "Bullet") {
-			Destroy(collision.gameObject);
+		else if (collision.collider.tag == "Bullet")
 			Destroy(this.gameObject);
-		}
 	}
 
 	void OnTriggerStay2D(Collider2D collider) {

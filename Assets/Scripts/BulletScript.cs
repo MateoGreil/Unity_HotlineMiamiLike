@@ -17,7 +17,14 @@ public class BulletScript : MonoBehaviour {
 	void Update () {
 		//make bullet go in player direction
 		transform.Translate(new Vector3(1, 0, 0) * speed * Time.deltaTime);
+		//TO-DO : Destroy bullet if collides with something or until certain amount of time
 		if (Vector3.Distance(startingPoint, transform.position) >= distBullet)
 			Destroy(this.gameObject);
+		
 	}
+
+	 void OnCollisionEnter2D(Collision2D collision) {
+		 Debug.Log(collision);
+		 Destroy(this.gameObject);
+	 }
 }

@@ -21,11 +21,11 @@ public class WeaponsScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		deltaTime += Time.deltaTime;
 	}
 
 	//Fire bullet if fireWeapon. Else stab
 	public void Fire () {
-		deltaTime += Time.deltaTime;
 		if (fireWeapon && deltaTime > fireRate && ammos > 0) {
 			deltaTime = 0;
 			if (transform.parent.tag == "Player")
