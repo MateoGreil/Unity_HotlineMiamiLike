@@ -10,10 +10,12 @@ public class WeaponsScript : MonoBehaviour {
 	public Sprite 		attachedSprite;
 	public Sprite 		onGroundSprite;
 	private GameObject	newBullet;
+	private float		deltaTime;
 	
 	private SpriteRenderer spriteRenderer;
 
 	void Start () {
+		deltaTime = fireRate;
 		spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 	}
 	
@@ -23,7 +25,9 @@ public class WeaponsScript : MonoBehaviour {
 
 	//Fire bullet if fireWeapon. Else stab
 	public void Fire () {
-		if (fireWeapon) {
+		deltaTime += Time.deltaTime;
+		if (fireWeapon && deltaTime > fireRate) {
+			deltaTime = 0;
 			if (ammos > 0) {
 				if (transform.parent.tag == "Player")
 					ammos -= 1;
@@ -32,9 +36,6 @@ public class WeaponsScript : MonoBehaviour {
 				newBullet.transform.Rotate(Vector3.forward * -90);
 				newBullet.transform.Translate(0.5f, 0, 0);
 			}
-		}
-		else {
-			//Animate knife
 		}
 	}
 
@@ -46,6 +47,9 @@ public class WeaponsScript : MonoBehaviour {
 			spriteRenderer.sprite = onGroundSprite;		
 	}
 	
-
-	/**** FAIRE LA FONCTION POUR LA PERTE DE VIE DU PERSO ****/
+	void OnCollisionEnter2D(Collision2D collision) {
+		if (fireWeapon == false && Input.GetKeyDown(KeyCode.Mouse0) && collision.collider.tag == "Enemy") {
+			Destroy(collision.gameObject);
+		}
+	}
 }

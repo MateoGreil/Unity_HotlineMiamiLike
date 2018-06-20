@@ -16,7 +16,7 @@ public class PlayerScript : MonoBehaviour {
 		if (GetKeyMove())
 			Move();
 		Rotate();
-		if (Input.GetKeyDown(KeyCode.Mouse0) && weapon != null)
+		if (Input.GetKey(KeyCode.Mouse0) && weapon != null)
 			weapon.GetComponent<WeaponsScript>().Fire();
 		if (Input.GetKeyDown(KeyCode.Mouse1) && weapon != null)
 			DropWeapon();
@@ -80,11 +80,12 @@ public class PlayerScript : MonoBehaviour {
 	void DropWeapon() {
 		weapon.GetComponent<WeaponsScript>().GetWeaponSprite();
 		weapon.transform.Translate(new Vector3(0, -1, 0));
-		weapon.GetComponent<BoxCollider2D>().enabled = true;
+		//weapon.GetComponent<BoxCollider2D>().enabled = true;
 		weapon.GetComponent<SpriteRenderer>().sortingLayerName = "Weapon";
 		weapon.transform.parent = null;
 		weapon = null;
 	}
+
 
 	void OnCollisionEnter2D(Collision2D collision) {
 		if (collision.collider.tag == "Bullet") {
@@ -102,7 +103,7 @@ public class PlayerScript : MonoBehaviour {
 			weapon.transform.position = transform.position;
 			weapon.transform.rotation = transform.rotation;
 			weapon.transform.Translate(new Vector3(-0.125f, -0.21f, 0));
-			weapon.GetComponent<BoxCollider2D>().enabled = false;
+			//weapon.GetComponent<BoxCollider2D>().enabled = false;
 			weapon.GetComponent<SpriteRenderer>().sortingLayerName = "EquipedWeapon";
 		}
 	}
