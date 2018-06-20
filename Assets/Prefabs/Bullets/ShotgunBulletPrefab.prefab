@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114490417387123650}
   m_Layer: 0
   m_Name: ShotgunBulletPrefab
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78,7 +78,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a29a081be85ac48c5a004b3cb7426cf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
+  speed: 6
+  distBullet: 10
 --- !u!212 &212096185330321692
 SpriteRenderer:
   m_ObjectHideFlags: 1
