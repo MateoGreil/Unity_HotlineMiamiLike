@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyScript : PlayerScript {
-	Quaternion startingAngle;
-    Quaternion stepAngle;
 
 	void Start() {
 		weapon = gameObject.transform.GetChild(3).gameObject;
@@ -14,29 +12,34 @@ public class EnemyScript : PlayerScript {
 		weapon.GetComponent<SpriteRenderer>().sortingLayerName = "EquipedWeapon";
 		weapon.GetComponent<SpriteRenderer>().sprite = weapon.GetComponent<WeaponsScript>().attachedSprite;
 		weapon.GetComponent<BoxCollider2D>().enabled = false;
-		startingAngle = Quaternion.AngleAxis(-60, Vector3.up);
-    	stepAngle = Quaternion.AngleAxis(5, Vector3.up);
 	}
 
 	void Update() {
-		startingAngle = Quaternion.AngleAxis(-60, Vector3.up);
-    	stepAngle = Quaternion.AngleAxis(5, Vector3.up);
 		Watch();
 	}
 
 	void Watch() {
-		RaycastHit hit;
-    	Quaternion angle = transform.rotation * startingAngle;
-        Vector3 direction = angle * Vector3.forward;
-        Vector3 pos = transform.position;
-        for (int i = 0; i < 24; i++) {
-            if (Physics.Raycast(pos, direction, out hit, 500)) {
-            	if (hit.collider.gameObject == GameManager.instance.player) {
-					Debug.Log("Je t'ai vu !");
-				}
-				else {Debug.Log("Je t'ai pas vu...");}
-      		}
-    		direction = stepAngle * direction;
+		int i;
+		RaycastHit2D hit;
+		Quaternion startAngle;
+		Quaternion stepAngle;
+		Quaternion angle;
+		Vector3 direction;
+
+		startAngle = Quaternion.AngleAxis(-60, Vector3.up);
+		stepAngle = Quaternion.AngleAxis(5, Vector3.up);
+		angle = transform.rotation * startAngle;
+		direction = angle * transform.forward;
+		i = 0;
+		while (i < 24) {
+        	hit = Physics2D.Raycast(transform.position - transform.up * 0.5f, direction, 10);
+       		if (hit && hit.collider.tag == "Player") {
+				Debug.DrawRay(transform.position - transform.up * 0.5f, direction * 10, Color.green);
+			}
+			else
+				Debug.DrawRay(transform.position - transform.up * 0.5f, direction * 10, Color.red);
+			i++;
+			direction = stepAngle * direction;
 		}
 	}
 }

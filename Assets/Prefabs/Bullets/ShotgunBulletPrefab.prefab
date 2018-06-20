@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 6
-  distBullet: 10
+  distBullet: 2
 --- !u!212 &212096185330321692
 SpriteRenderer:
   m_ObjectHideFlags: 1

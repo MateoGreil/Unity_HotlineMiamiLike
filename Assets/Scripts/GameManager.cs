@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour {
-	public static GameManager instance = null;  
+	public static GameManager gm;
 	public GameObject player;
-	// Use this for initialization
-	void Start () {
-		
-	}
 	
-	// Update is called once per frame
-	void Update () {
+	void Awake() {
+		if (gm == null)
+			gm = this;
 	}
 }
