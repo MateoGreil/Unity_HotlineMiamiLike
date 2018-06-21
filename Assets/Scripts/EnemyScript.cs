@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class EnemyScript : PlayerScript {
 	public float rotationSpeed;
+	public float timeToResetFocus;
+	float countdown;
 	GameObject focus;
 
 	void Start() {
+		countdown = 0;
 		weapon = gameObject.transform.GetChild(3).gameObject;
 		weapon.transform.position = transform.position;
 		weapon.transform.rotation = transform.rotation;
@@ -19,9 +22,13 @@ public class EnemyScript : PlayerScript {
 	void Update() {
 		Watch();
 		if (focus) {
+			gameObject.GetComponent<FollowPath>().enabled = false;
+			gameObject.transform.Translate(new Vector3(0f, -1f, 0f).normalized * speed * Time.deltaTime);
 			FocusOn(focus);
 			weapon.GetComponent<WeaponsScript>().Fire();
 		}
+		else
+			gameObject.GetComponent<FollowPath>().enabled = true;
 	}
 
 	//Watch detect if the player is in the FOV of the enemy
@@ -45,7 +52,15 @@ public class EnemyScript : PlayerScript {
 			i++;
 			direction = Quaternion.AngleAxis(5, Vector3.forward) * direction;
 		}
-		focus = resetFocus;
+		if (!resetFocus) {
+			countdown += Time.deltaTime;
+			if (countdown > timeToResetFocus) {
+				focus = resetFocus;
+				countdown = 0;
+			}
+		}
+		else
+			focus = resetFocus;
 	}
 
 	//FocusOn rotate the enemy to shot the player
