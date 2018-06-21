@@ -23,7 +23,8 @@ public class EnemyScript : PlayerScript {
 		Watch();
 		if (focus) {
 			gameObject.GetComponent<FollowPath>().enabled = false;
-			gameObject.transform.Translate(new Vector3(0f, -1f, 0f).normalized * speed * Time.deltaTime);
+			if (Vector3.Distance(focus.transform.position, transform.position) > 5)
+				gameObject.transform.Translate(new Vector3(0f, -1f, 0f).normalized * speed * Time.deltaTime);
 			FocusOn(focus);
 			weapon.GetComponent<WeaponsScript>().Fire();
 		}
