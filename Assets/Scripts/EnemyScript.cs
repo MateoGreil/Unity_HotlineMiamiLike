@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyScript : PlayerScript {
+	public float rotationSpeed;
+	GameObject focus;
 
 	void Start() {
 		weapon = gameObject.transform.GetChild(3).gameObject;
@@ -16,20 +18,26 @@ public class EnemyScript : PlayerScript {
 
 	void Update() {
 		Watch();
+		if (focus) {
+			FocusOn(focus);
+			weapon.GetComponent<WeaponsScript>().Fire();
+		}
 	}
 
+	//Watch detect if the player is in the FOV of the enemy
 	void Watch() {
 		int i;
 		RaycastHit2D hit;
 		Vector3 direction;
+		GameObject resetFocus;
 
+		resetFocus = null;
 		direction = Quaternion.AngleAxis(-60, Vector3.forward) * (-transform.up);
 		i = 0;
 		while (i < 24) {
-			Debug.Log("direction = ");
-			Debug.Log(direction);
         	hit = Physics2D.Raycast(transform.position - transform.up * 0.5f, direction, 10);
        		if (hit && hit.collider.tag == "Player") {
+				resetFocus = hit.collider.gameObject;
 				Debug.DrawRay(transform.position - transform.up * 0.5f, direction * 10, Color.green);
 			}
 			else
@@ -37,5 +45,19 @@ public class EnemyScript : PlayerScript {
 			i++;
 			direction = Quaternion.AngleAxis(5, Vector3.forward) * direction;
 		}
+		focus = resetFocus;
+	}
+
+	//FocusOn rotate the enemy to shot the player
+	void FocusOn(GameObject focus) {
+        Vector3 targetPoint;
+        Quaternion targetRotation;
+ 
+		targetPoint = (focus.transform.position - transform.position).normalized;
+		Debug.Log(targetPoint);
+        targetRotation = Quaternion.LookRotation(targetPoint, -transform.up);
+		Debug.Log(targetRotation);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+		transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, transform.rotation.eulerAngles.z));
 	}
 }
