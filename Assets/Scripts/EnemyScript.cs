@@ -26,12 +26,13 @@ public class EnemyScript : PlayerScript {
 		Quaternion angle;
 		Vector3 direction;
 
-		startAngle = Quaternion.AngleAxis(-60, Vector3.up);
+		startAngle = Quaternion.Euler(tiltAroundX,-sightangle,0);
 		stepAngle = Quaternion.AngleAxis(5, Vector3.up);
 		angle = transform.rotation * startAngle;
-		direction = angle * transform.forward;
+		direction = angle * Vector3.forward;
+		Debug.Log(direction);
 		i = 0;
-		while (i < 24) {
+		while (i < 25) {
         	hit = Physics2D.Raycast(transform.position - transform.up * 0.5f, direction, 10);
        		if (hit && hit.collider.tag == "Player") {
 				Debug.DrawRay(transform.position - transform.up * 0.5f, direction * 10, Color.green);
