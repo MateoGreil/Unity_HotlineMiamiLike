@@ -80,8 +80,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 1849665059854488, guid: 99febf6e535fb40439f09e1a5becc865, type: 2}
   fireWeapon: 1
-  ammos: 5
-  power: 10
+  ammos: 25
   fireRate: 1
   attachedSprite: {fileID: 21300000, guid: 2775ead70e19f415884382d7d0911c04, type: 3}
   onGroundSprite: {fileID: 21300000, guid: b99032e6f1f9a49e5adb932489c76376, type: 3}
