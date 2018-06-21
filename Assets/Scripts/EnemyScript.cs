@@ -43,13 +43,13 @@ public class EnemyScript : PlayerScript {
 		direction = Quaternion.AngleAxis(-60, Vector3.forward) * (-transform.up);
 		i = 0;
 		while (i < 24) {
-        	hit = Physics2D.Raycast(transform.position - transform.up * 0.5f, direction, 10);
+        	hit = Physics2D.Raycast(transform.position /*- transform.up * 0.5f*/, direction, 10);
        		if (hit && hit.collider.tag == "Player") {
 				resetFocus = hit.collider.gameObject;
-				Debug.DrawRay(transform.position - transform.up * 0.5f, direction * 10, Color.green);
+				Debug.DrawRay(transform.position /*- transform.up * 0.5f*/, direction * 10, Color.green);
 			}
 			else
-				Debug.DrawRay(transform.position - transform.up * 0.5f, direction * 10, Color.red);
+				Debug.DrawRay(transform.position /*- transform.up * 0.5f*/, direction * 10, Color.red);
 			i++;
 			direction = Quaternion.AngleAxis(5, Vector3.forward) * direction;
 		}
@@ -74,4 +74,11 @@ public class EnemyScript : PlayerScript {
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
 		transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, transform.rotation.eulerAngles.z));
 	}
+
+	void OnTriggerStay2D(Collider2D collider) {
+		if (focus == null && collider.tag == "Player") {
+			focus = collider.gameObject;
+		}
+	}
+
 }
