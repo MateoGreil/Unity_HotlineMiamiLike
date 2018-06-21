@@ -54,9 +54,7 @@ public class EnemyScript : PlayerScript {
         Quaternion targetRotation;
  
 		targetPoint = (focus.transform.position - transform.position).normalized;
-		Debug.Log(targetPoint);
         targetRotation = Quaternion.LookRotation(targetPoint, -transform.up);
-		Debug.Log(targetRotation);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
 		transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, transform.rotation.eulerAngles.z));
 	}

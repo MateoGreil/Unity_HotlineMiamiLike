@@ -24,7 +24,6 @@ public class BulletScript : MonoBehaviour {
 	}
 
 	 void OnCollisionEnter2D(Collision2D collision) {
-		Debug.Log("COLLISION!");
 		Destroy(this.gameObject);
 	 }
 }
