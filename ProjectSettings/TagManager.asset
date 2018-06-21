@@ -10,6 +10,7 @@ TagManager:
   - SoundToken
   - Door
   - finalCar
+  - Logo
   layers:
   - Default
   - TransparentFX
