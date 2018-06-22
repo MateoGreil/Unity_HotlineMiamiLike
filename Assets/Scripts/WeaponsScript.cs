@@ -9,14 +9,19 @@ public class WeaponsScript : MonoBehaviour {
 	public float 		fireRate;
 	public Sprite 		attachedSprite;
 	public Sprite 		onGroundSprite;
+
 	private GameObject	newBullet;
 	private float		deltaTime;
+	private AudioSource	audioFire;
+	private AudioSource[]	sources;
 	
 	private SpriteRenderer spriteRenderer;
 
 	void Start () {
 		deltaTime = fireRate;
 		spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+		sources = GetComponents<AudioSource>();
+		audioFire = sources[0];
 	}
 	
 	// Update is called once per frame
@@ -34,6 +39,7 @@ public class WeaponsScript : MonoBehaviour {
 			newBullet = Instantiate(bullet, gameObject.transform.position, gameObject.transform.rotation);
 			newBullet.transform.Rotate(Vector3.forward * -90);
 			newBullet.transform.Translate(0.5f, 0, 0);
+			audioFire.Play();
 		}
 	}
 

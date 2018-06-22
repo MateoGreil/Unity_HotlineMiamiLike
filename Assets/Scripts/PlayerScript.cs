@@ -6,9 +6,16 @@ public class PlayerScript : MonoBehaviour {
 	public float speed;
 	protected GameObject weapon;
 
+	private AudioSource[]	audioSources;
+	private AudioSource		audioDropWeapon;
+	private AudioSource		audioPickWeapon;
+
 	// Use this for initialization
 	void Start () {
 		weapon = null;
+		audioSources = GetComponents<AudioSource>();
+		audioPickWeapon = audioSources[0];
+		audioDropWeapon = audioSources[1];
 	}
 	
 	// Update is called once per frame
@@ -83,6 +90,7 @@ public class PlayerScript : MonoBehaviour {
 		weapon.GetComponent<SpriteRenderer>().sortingLayerName = "Weapon";
 		weapon.transform.parent = null;
 		weapon = null;
+		audioDropWeapon.Play();
 	}
 
 
@@ -106,6 +114,7 @@ public class PlayerScript : MonoBehaviour {
 			if (weapon.GetComponent<WeaponsScript>().fireWeapon)
 				weapon.GetComponent<BoxCollider2D>().enabled = false;
 			weapon.GetComponent<SpriteRenderer>().sortingLayerName = "EquipedWeapon";
+			audioPickWeapon.Play();
 		}
 	}
 }

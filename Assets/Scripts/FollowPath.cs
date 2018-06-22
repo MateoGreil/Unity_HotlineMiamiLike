@@ -50,6 +50,11 @@ public class FollowPath : MonoBehaviour {
 			//Move to the next point
 			transform.position = Vector3.MoveTowards(transform.position,
 				pointInPath.Current.position, Time.deltaTime * speed);
+			//Look towards the next point
+			Vector3 vectorToTarget = pointInPath.Current.position - transform.position;
+			float angle = (Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg) + 90;
+			Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
+			transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * 2);
 		}
 		else if (Type == MovementType.LerpTowards)
 		{
