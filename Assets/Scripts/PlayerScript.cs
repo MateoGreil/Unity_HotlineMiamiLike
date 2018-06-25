@@ -11,7 +11,7 @@ public class PlayerScript : MonoBehaviour {
 	private AudioSource		audioPickWeapon;
 	private AudioSource		audioDeath;
 	private BoxCollider2D 	collider;
-	private bool			isDead = false;
+	public bool			isDead = false;
 
 	// Use this for initialization
 	void Start () {
