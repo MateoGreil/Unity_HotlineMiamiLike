@@ -17,6 +17,7 @@ public class FollowPath : MonoBehaviour {
 	public MovementPath MyPath;
 	public float speed = 1;
 	public float MaxDistanceToGoal = .1f; //How close does it have to be to the point to e considered at point
+	public bool	isRotating = false;
 	#endregion
 	
 	#region Private Variables
@@ -50,11 +51,13 @@ public class FollowPath : MonoBehaviour {
 			//Move to the next point
 			transform.position = Vector3.MoveTowards(transform.position,
 				pointInPath.Current.position, Time.deltaTime * speed);
-			//Look towards the next point
-			Vector3 vectorToTarget = pointInPath.Current.position - transform.position;
-			float angle = (Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg) + 90;
-			Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
-			transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * 2);
+			if (isRotating) {
+				//Look towards the next point
+				Vector3 vectorToTarget = pointInPath.Current.position - transform.position;
+				float angle = (Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg) + 90;
+				Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
+				transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * 2);
+			}
 		}
 		else if (Type == MovementType.LerpTowards)
 		{
