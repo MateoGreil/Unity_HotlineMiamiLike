@@ -9,6 +9,8 @@ public class PlayerScript : MonoBehaviour {
 	private AudioSource[]	audioSources;
 	private AudioSource		audioDropWeapon;
 	private AudioSource		audioPickWeapon;
+	private AudioSource		audioDeath;
+	private bool			isDead = false;
 
 	// Use this for initialization
 	void Start () {
@@ -16,6 +18,7 @@ public class PlayerScript : MonoBehaviour {
 		audioSources = GetComponents<AudioSource>();
 		audioPickWeapon = audioSources[0];
 		audioDropWeapon = audioSources[1];
+		audioDeath = audioSources[2];
 	}
 	
 	// Update is called once per frame
@@ -27,6 +30,7 @@ public class PlayerScript : MonoBehaviour {
 			weapon.GetComponent<WeaponsScript>().Fire();
 		if (Input.GetKeyDown(KeyCode.Mouse1) && weapon != null)
 			DropWeapon();
+		CheckIfDead();
 	}
 
 	// GetKeyMove return true if a key of movement is down
@@ -76,11 +80,13 @@ public class PlayerScript : MonoBehaviour {
 		Vector3 dir;
 		float angle;
 
-		mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		mousePosition.z = transform.position.z;
-		dir = mousePosition - transform.position;
- 		angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + 90;
- 		transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+		if (!isDead) { //Cannot turn head if dead
+			mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			mousePosition.z = transform.position.z;
+			dir = mousePosition - transform.position;
+			angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg + 90;
+			transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+		}
     }
 
 	void DropWeapon() {
@@ -99,7 +105,10 @@ public class PlayerScript : MonoBehaviour {
 			//Coup de cut
 		}
 		else if (collision.collider.tag == "Bullet")
-			Destroy(this.gameObject);
+		{
+			audioDeath.Play();
+			isDead = true;
+		}
 	}
 
 	void OnTriggerStay2D(Collider2D collider) {
@@ -116,5 +125,13 @@ public class PlayerScript : MonoBehaviour {
 			weapon.GetComponent<SpriteRenderer>().sortingLayerName = "EquipedWeapon";
 			audioPickWeapon.Play();
 		}
+	}
+
+	void CheckIfDead () {
+		//Deactivate Box Collider and Change Sprite if is dead
+		if (isDead) {
+			GetComponent<BoxCollider2D>().enabled = false;
+			speed = 0;
+		} 
 	}
 }
