@@ -72,8 +72,13 @@ public class EnemyScript : PlayerScript {
  
 		targetPoint = (focus.transform.position - transform.position);
         targetRotation = Quaternion.LookRotation(targetPoint, -transform.up);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
-		transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, transform.rotation.eulerAngles.z));
+		if (Vector3.Dot(targetPoint, -transform.up) > 0) {//front
+        	transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+			transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, transform.rotation.eulerAngles.z));
+		}
+		else {//back
+			transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z + rotationSpeed * 70 * Time.deltaTime);
+		}
 	}
 
 	void OnTriggerStay2D(Collider2D collider) {
