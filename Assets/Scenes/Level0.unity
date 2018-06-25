@@ -397,16 +397,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 212544961188932710, guid: 6b862e76ca95a4e479ef27b45d51d293,
-        type: 2}
-      propertyPath: m_SortingLayerID
-      value: -50020099
-      objectReference: {fileID: 0}
-    - target: {fileID: 212544961188932710, guid: 6b862e76ca95a4e479ef27b45d51d293,
-        type: 2}
-      propertyPath: m_SortingLayer
-      value: -1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6b862e76ca95a4e479ef27b45d51d293, type: 2}
   m_IsPrefabParent: 0
@@ -453,19 +443,8 @@ Prefab:
       propertyPath: m_Name
       value: Enemy (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 4251808111773250, guid: a3f09235b1737494d84046753c63e9de, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 4251808111773250, guid: a3f09235b1737494d84046753c63e9de, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4251808111773250, guid: a3f09235b1737494d84046753c63e9de, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114734452071618156, guid: a3f09235b1737494d84046753c63e9de, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: a3f09235b1737494d84046753c63e9de, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &595038604
@@ -844,7 +823,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 426222055
   m_SortingLayer: -2
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
@@ -1493,10 +1472,6 @@ Prefab:
     - target: {fileID: 4932374725645532, guid: d3d4795f1b6684fbd9eb141de46444ce, type: 2}
       propertyPath: m_RootOrder
       value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1169068282656894, guid: d3d4795f1b6684fbd9eb141de46444ce, type: 2}
-      propertyPath: m_Name
-      value: Character
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d3d4795f1b6684fbd9eb141de46444ce, type: 2}

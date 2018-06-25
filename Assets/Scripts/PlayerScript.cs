@@ -10,15 +10,18 @@ public class PlayerScript : MonoBehaviour {
 	private AudioSource		audioDropWeapon;
 	private AudioSource		audioPickWeapon;
 	private AudioSource		audioDeath;
+	private BoxCollider2D 	collider;
 	private bool			isDead = false;
 
 	// Use this for initialization
 	void Start () {
+		Camera.main.transform.position = transform.position - new Vector3(0, 0, 10);
 		weapon = null;
 		audioSources = GetComponents<AudioSource>();
 		audioPickWeapon = audioSources[0];
 		audioDropWeapon = audioSources[1];
 		audioDeath = audioSources[2];
+		collider = GetComponent<BoxCollider2D>();
 	}
 	
 	// Update is called once per frame
@@ -30,7 +33,6 @@ public class PlayerScript : MonoBehaviour {
 			weapon.GetComponent<WeaponsScript>().Fire();
 		if (Input.GetKeyDown(KeyCode.Mouse1) && weapon != null)
 			DropWeapon();
-		CheckIfDead();
 	}
 
 	// GetKeyMove return true if a key of movement is down
@@ -80,7 +82,7 @@ public class PlayerScript : MonoBehaviour {
 		Vector3 dir;
 		float angle;
 
-		if (!isDead) { //Cannot turn head if dead
+		if (isDead == false) { //Cannot turn head if dead
 			mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			mousePosition.z = transform.position.z;
 			dir = mousePosition - transform.position;
@@ -106,7 +108,10 @@ public class PlayerScript : MonoBehaviour {
 		}
 		else if (collision.collider.tag == "Bullet")
 		{
+			Debug.Log("DEAD");
 			audioDeath.Play();
+			speed = 0;
+			collider.enabled = false;
 			isDead = true;
 		}
 	}
@@ -125,13 +130,5 @@ public class PlayerScript : MonoBehaviour {
 			weapon.GetComponent<SpriteRenderer>().sortingLayerName = "EquipedWeapon";
 			audioPickWeapon.Play();
 		}
-	}
-
-	void CheckIfDead () {
-		//Deactivate Box Collider and Change Sprite if is dead
-		if (isDead) {
-			GetComponent<BoxCollider2D>().enabled = false;
-			speed = 0;
-		} 
 	}
 }

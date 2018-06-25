@@ -15,5 +15,7 @@ public class EndOfLevel : MonoBehaviour {
         if (enemy.Length == 0) {
         	SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 		}
+		if (Input.GetKey(KeyCode.R))
+			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

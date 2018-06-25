@@ -8,8 +8,11 @@ public class EnemyScript : PlayerScript {
 	float countdown;
 	GameObject focus;
 	Vector3 posFocus;
+	FollowPath	followPath;
 
 	void Start() {
+		if (gameObject.GetComponent<FollowPath>())
+			followPath = gameObject.GetComponent<FollowPath>();
 		countdown = 0;
 		weapon = gameObject.transform.GetChild(3).gameObject;
 		weapon.transform.position = transform.position;
@@ -23,15 +26,15 @@ public class EnemyScript : PlayerScript {
 	void Update() {
 		Watch();
 		if (focus) {
-			if (gameObject.GetComponent<FollowPath>().enabled == true)
-				gameObject.GetComponent<FollowPath>().enabled = false;
+			if (followPath && followPath.enabled == true)
+				followPath.enabled = false;
 			if (Vector3.Distance(focus.transform.position, transform.position) > 5)
 				gameObject.transform.Translate(new Vector3(0f, -1f, 0f).normalized * speed * Time.deltaTime);
 			FocusOn(posFocus);
 			weapon.GetComponent<WeaponsScript>().Fire();
 		}
-		else if (gameObject.GetComponent<FollowPath>().enabled == false)
-			gameObject.GetComponent<FollowPath>().enabled = true;
+		else if (followPath && followPath.enabled == false)
+			followPath.enabled = true;
 	}
 
 	//Watch detect if the player is in the FOV of the enemy
@@ -91,4 +94,8 @@ public class EnemyScript : PlayerScript {
 		}
 	}
 
+	void OnCollisionEnter2D(Collision2D collision) {
+		if (collision.collider.tag == "Bullet")
+			Destroy(gameObject);
+	}
 }

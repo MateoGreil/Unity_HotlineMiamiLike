@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class ButtonsActions : MonoBehaviour {
 
 	public void LoadLevel () {
-		SceneManager.LoadScene("backup");
+		SceneManager.LoadScene("Level0");
 	}
 
 	public void ExitGame() {
