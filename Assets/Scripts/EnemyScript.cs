@@ -70,16 +70,16 @@ public class EnemyScript : PlayerScript {
         Vector3 targetPoint;
         Quaternion targetRotation;
  
-		targetPoint = (focus.transform.position - transform.position).normalized;
+		targetPoint = (focus.transform.position - transform.position);
         targetRotation = Quaternion.LookRotation(targetPoint, -transform.up);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
 		transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, transform.rotation.eulerAngles.z));
 	}
 
-	/*void OnTriggerStay2D(Collider2D collider) {
+	void OnTriggerStay2D(Collider2D collider) {
 		if (focus == null && collider.tag == "Player") {
 			focus = collider.gameObject;
 		}
-	}*/
+	}
 
 }
