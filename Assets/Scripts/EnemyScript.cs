@@ -7,6 +7,7 @@ public class EnemyScript : PlayerScript {
 	public float timeToResetFocus;
 	float countdown;
 	GameObject focus;
+	Vector3 posFocus;
 
 	void Start() {
 		countdown = 0;
@@ -26,7 +27,7 @@ public class EnemyScript : PlayerScript {
 				gameObject.GetComponent<FollowPath>().enabled = false;
 			if (Vector3.Distance(focus.transform.position, transform.position) > 5)
 				gameObject.transform.Translate(new Vector3(0f, -1f, 0f).normalized * speed * Time.deltaTime);
-			FocusOn(focus);
+			FocusOn(posFocus);
 			weapon.GetComponent<WeaponsScript>().Fire();
 		}
 		else if (gameObject.GetComponent<FollowPath>().enabled == false)
@@ -61,16 +62,18 @@ public class EnemyScript : PlayerScript {
 				countdown = 0;
 			}
 		}
-		else
+		else {
 			focus = resetFocus;
+			posFocus = focus.transform.position;
+		}
 	}
 
 	//FocusOn rotate the enemy to shot the player
-	void FocusOn(GameObject focus) {
+	void FocusOn(Vector3 focus) {
         Vector3 targetPoint;
         Quaternion targetRotation;
  
-		targetPoint = (focus.transform.position - transform.position);
+		targetPoint = (focus - transform.position);
         targetRotation = Quaternion.LookRotation(targetPoint, -transform.up);
 		if (Vector3.Dot(targetPoint, -transform.up) > 0) {//front
         	transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
@@ -84,6 +87,7 @@ public class EnemyScript : PlayerScript {
 	void OnTriggerStay2D(Collider2D collider) {
 		if (focus == null && collider.tag == "Player") {
 			focus = collider.gameObject;
+			posFocus = focus.transform.position;
 		}
 	}
 
