@@ -39,6 +39,9 @@ public class WeaponsScript : MonoBehaviour {
 			newBullet = Instantiate(bullet, gameObject.transform.position, gameObject.transform.rotation);
 			newBullet.transform.Rotate(Vector3.forward * -90);
 			newBullet.transform.Translate(0.5f, 0, 0);
+			//Play sound id no other one is playing
+			//if (!audioFire.isPlaying)
+			//Play fire sound
 			audioFire.Play();
 		}
 	}
