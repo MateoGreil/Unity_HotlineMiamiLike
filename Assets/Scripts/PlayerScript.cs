@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour {
 	public float speed;
-	protected GameObject weapon;
+	public GameObject weapon;
 
 	private AudioSource[]	audioSources;
 	private AudioSource		audioDropWeapon;
